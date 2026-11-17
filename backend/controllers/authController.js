@@ -4,7 +4,7 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-const { UniqueConstraintError } = require("sequelize");
+const { UniqueConstraintError} = require("sequelize");
 const User = require("../models/User.js");
 
 
@@ -97,16 +97,6 @@ const login = async (req, res) => {
 };
 
 
-const me = async (req, res) => {
-    return res.status(200).json({
-        success: true,
-        data: {
-            user: publicUser(req.user)
-        }
-    });
-};
-
-
 
 const register = async (req, res) => {
     try {
@@ -182,8 +172,9 @@ const register = async (req, res) => {
     }
 };
 
+
+
 module.exports = {
     login,
-    me,
-    register
+    register,
 };

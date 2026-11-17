@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const authRoutes = require("../backend/routes/authRoutes");
 const adminRoutes = require("../backend/routes/adminRoutes");
+const userRoutes = require("../backend/routes/userRoutes");
 
 dotenv.config();
 
@@ -17,8 +18,9 @@ app.use(cors());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminRoutes);
+app.use("/api/users", userRoutes )
 
 
 app.listen(5000 || process.env.PORT, () => {
-console.log("Elidult a szerver!")
+    console.log("Elidult a szerver!")
 });
