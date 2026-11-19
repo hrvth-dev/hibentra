@@ -3,10 +3,7 @@
 
 const bcrypt = require("bcryptjs");
 
-const {
-    UniqueConstraintError,
-    ValidationError
-} = require("sequelize");
+const { UniqueConstraintError, ValidationError} = require("sequelize");
 
 const User = require("../models/User.js");
 

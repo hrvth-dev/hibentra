@@ -15,6 +15,7 @@ router.use(authenticate);
 // Bejelentkezett felhasználók
 
 router.get("/", controller.listRooms);
+
 router.get("/:id", controller.getRoom);
 
 // Kizárólag adminisztrátoroknak

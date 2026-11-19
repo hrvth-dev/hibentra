@@ -9,7 +9,6 @@ const authenticate = require("../middlewares/authMiddleware");
 
 router.use(authenticate);
 
-
 router.get("/me", userController.getMe);
 
 module.exports = router;
