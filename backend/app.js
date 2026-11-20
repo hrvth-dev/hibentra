@@ -10,6 +10,7 @@ const userRoutes = require("../backend/routes/userRoutes");
 
 const roomRouters = require("../backend/routes/roomRoutes");
 const categoryRouters = require("../backend/routes/categoryRoutes");
+const ticketRoutes = require("../backend/routes/ticketRoutes");
 
 dotenv.config();
 
@@ -27,6 +28,8 @@ app.use("/api/users", userRoutes )
 
 app.use("/api/rooms", roomRouters);
 app.use("/api/category", categoryRouters);
+app.use("/api/ticket", ticketRoutes);
+
 
 app.listen(5000 || process.env.PORT, () => {
     console.log("Elidult a szerver!")
