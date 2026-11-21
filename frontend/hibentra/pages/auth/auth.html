@@ -1,0 +1,166 @@
+
+<div class="auth-page">
+
+  <section class="brand-panel">
+    <div class="brand">
+      <span class="brand-mark">H</span>
+      <span>hibentra<span class="brand-dot">.</span></span>
+    </div>
+
+    <div class="brand-copy">
+      <div class="eyebrow">INTÉZMÉNYI HIBAKEZELÉS</div>
+
+      <h1>
+        A problémák<br>
+        megoldása <span>itt kezdődik.</span>
+      </h1>
+
+      <p>
+        Jelentsd be a hibákat, kövesd a javításokat,
+        és tartsd átláthatóan az intézmény karbantartási
+        folyamatait.
+      </p>
+
+      <div class="brand-highlights">
+        <div><span class="check">✓</span> Gyors hibabejelentés</div>
+        <div><span class="check">✓</span> Átlátható javítási folyamat</div>
+        <div><span class="check">✓</span> Helyiségek és eszközök nyilvántartása</div>
+      </div>
+    </div>
+
+    <div class="brand-footer">
+      Hibentra · Intézményi hibabejelentő rendszer
+    </div>
+  </section>
+
+  <main class="form-panel">
+    <div class="mobile-brand">
+      <span class="brand-mark">H</span>
+      hibentra.
+    </div>
+
+    <div class="auth-card">
+      <div class="form-heading">
+        <span class="welcome-label">ÜDVÖZLÜNK A HIBENTRÁBAN</span>
+
+        <h2>
+          {{ mode() === 'login' ? 'Bejelentkezés' : 'Fiók létrehozása' }}
+        </h2>
+
+        <p>
+          @if (mode() === 'login') {
+            Jelentkezz be a hibabejelentő rendszer használatához.
+          } @else {
+            Hozd létre a felhasználói fiókodat.
+          }
+        </p>
+      </div>
+
+      <div class="auth-tabs">
+        <button
+          type="button"
+          [class.selected]="mode() === 'login'"
+          (click)="setMode('login')">
+          Bejelentkezés
+        </button>
+
+        <button
+          type="button"
+          [class.selected]="mode() === 'register'"
+          (click)="setMode('register')">
+          Regisztráció
+        </button>
+      </div>
+
+      @if (error()) {
+        <div class="alert error" role="alert">{{ error() }}</div>
+      }
+
+      @if (success()) {
+        <div class="alert success" role="status">{{ success() }}</div>
+      }
+
+      @if (mode() === 'login') {
+
+        <form [formGroup]="loginForm" (ngSubmit)="submitLogin()">
+
+          <label for="login-email">E-mail-cím</label>
+          <input
+            id="login-email"
+            type="email"
+            formControlName="email"
+            placeholder="pelda@iskola.hu"
+            autocomplete="email">
+
+          <label for="login-password">Jelszó</label>
+          <input
+            id="login-password"
+            type="password"
+            formControlName="password"
+            placeholder="Add meg a jelszavad"
+            autocomplete="current-password">
+
+          <button
+            class="submit-btn"
+            type="submit"
+            [disabled]="loading()">
+            {{ loading() ? 'Bejelentkezés...' : 'Bejelentkezés' }}
+            <span aria-hidden="true">→</span>
+          </button>
+
+        </form>
+
+      } @else {
+
+        <form [formGroup]="registerForm" (ngSubmit)="submitRegister()">
+
+          <label for="reg-username">Felhasználónév</label>
+          <input
+            id="reg-username"
+            formControlName="username"
+            placeholder="Felhasználónév"
+            autocomplete="username">
+
+          <label for="reg-email">E-mail-cím</label>
+          <input
+            id="reg-email"
+            type="email"
+            formControlName="email"
+            placeholder="pelda@iskola.hu"
+            autocomplete="email">
+
+          <label for="reg-password">Jelszó</label>
+          <input
+            id="reg-password"
+            type="password"
+            formControlName="password"
+            placeholder="Legalább 12 karakter"
+            autocomplete="new-password">
+
+          <label for="reg-confirm">Jelszó megerősítése</label>
+          <input
+            id="reg-confirm"
+            type="password"
+            formControlName="confirmPassword"
+            placeholder="Jelszó ismét"
+            autocomplete="new-password">
+
+          <button
+            class="submit-btn"
+            type="submit"
+            [disabled]="loading()">
+            {{ loading() ? 'Regisztráció...' : 'Fiók létrehozása' }}
+            <span aria-hidden="true">→</span>
+          </button>
+
+        </form>
+      }
+
+      <p class="form-footnote">
+        A rendszer használatával az intézmény
+        hibakezelési folyamataiban vehetsz részt.
+      </p>
+    </div>
+  </main>
+
+</div>
