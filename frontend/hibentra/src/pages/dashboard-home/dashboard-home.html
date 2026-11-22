@@ -1,0 +1,123 @@
+
+<section class="dashboard-home">
+
+  <div class="welcome-header">
+    <div>
+      <p class="eyebrow">VEZÉRLŐPULT</p>
+      <h1>
+        Üdv újra, {{ auth.user()?.username }}!
+      </h1>
+      <p>
+        Itt tekintheted át a hozzád tartozó hibajegyeket
+        és az intézmény nyilvántartását.
+      </p>
+    </div>
+
+    <a class="new-ticket-button" routerLink="/tickets">
+      <span>＋</span>
+      Hibajegyek
+    </a>
+  </div>
+
+  @if (loading()) {
+    <div class="notice">Dashboard adatainak betöltése...</div>
+  } @else if (error()) {
+    <div class="notice error">{{ error() }}</div>
+  } @else {
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-symbol blue">▤</div>
+        <span>Hozzáférhető hibajegyek</span>
+        <strong>{{ ticketCount() }}</strong>
+        <small>Összes bejelentés a nézetedben</small>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-symbol orange">◷</div>
+        <span>Folyamatban</span>
+        <strong>{{ inProgressCount() }}</strong>
+        <small>Jelenleg javítás alatt</small>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-symbol purple">▦</div>
+        <span>Helyiségek</span>
+        <strong>{{ roomCount() }}</strong>
+        <small>Nyilvántartott termek</small>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-symbol green">◈</div>
+        <span>Kategóriák</span>
+        <strong>{{ categoryCount() }}</strong>
+        <small>Elérhető hibakategóriák</small>
+      </div>
+    </div>
+
+    <section class="recent-panel">
+      <div class="panel-header">
+        <div>
+          <h2>Legutóbbi hibajegyek</h2>
+          <p>A számodra elérhető legfrissebb bejelentések</p>
+        </div>
+
+        <a routerLink="/tickets">Összes megtekintése →</a>
+      </div>
+
+      @if (recentTickets().length === 0) {
+        <div class="empty-state">
+          <span>▤</span>
+          <strong>Még nincsenek hibajegyek</strong>
+          <p>Az új hibabejelentések itt fognak megjelenni.</p>
+        </div>
+      } @else {
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Hibajegy</th>
+                <th>Helyiség</th>
+                <th>Állapot</th>
+                <th>Dátum</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              @for (ticket of recentTickets(); track ticket.id) {
+                <tr>
+                  <td>
+                    <strong>{{ ticket.title }}</strong>
+                    <small>#{{ ticket.id }} · {{ ticket.category?.name || '—' }}</small>
+                  </td>
+
+                  <td>
+                    @if (ticket.room) {
+                      {{ ticket.room.building }} –
+                      {{ ticket.room.roomNumber }}
+                    } @else {
+                      —
+                    }
+                  </td>
+
+                  <td>
+                    <span
+                      class="status"
+                      [class.in-progress]="ticket.status === 'IN_PROGRESS'"
+                      [class.resolved]="ticket.status === 'RESOLVED'"
+                      [class.assigned]="ticket.status === 'ASSIGNED'">
+                      {{ statusLabel(ticket.status) }}
+                    </span>
+                  </td>
+
+                  <td>{{ ticket.createdAt | date:'yyyy.MM.dd.' }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+    </section>
+  }
+
+</section>

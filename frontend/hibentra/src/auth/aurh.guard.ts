@@ -5,7 +5,6 @@ import { map } from 'rxjs';
 
 import { AuthService } from './auth.service';
 
-// Csak bejelentkezett felhasználó léphet tovább.
 
 export const authGuard: CanActivateFn = () => {
   const auth = inject(AuthService);
@@ -16,7 +15,6 @@ export const authGuard: CanActivateFn = () => {
   );
 };
 
-// Bejelentkezett felhasználót ne küldjünk vissza a loginra.
 
 export const guestGuard: CanActivateFn = () => {
   const auth = inject(AuthService);
@@ -27,7 +25,6 @@ export const guestGuard: CanActivateFn = () => {
   );
 };
 
-// Csak ADMIN.
 
 export const adminGuard: CanActivateFn = () => {
   const auth = inject(AuthService);
@@ -42,7 +39,6 @@ export const adminGuard: CanActivateFn = () => {
   );
 };
 
-// TECHNICIAN vagy ADMIN.
 
 export const staffGuard: CanActivateFn = () => {
   const auth = inject(AuthService);
